@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 using System;
 
 public class ExpressionEvaluator

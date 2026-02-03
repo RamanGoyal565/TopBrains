@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 using System;
 using System.Collections.Generic;
 
@@ -32,3 +33,4 @@ public static class DistinctByExtensions
         return result.ToArray();
     }
 }
+
