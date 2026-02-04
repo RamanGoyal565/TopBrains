@@ -83,5 +83,33 @@ class Program
                 total += employee.GetPay();
             }
         }
+        return total;
     }
+    static Employee ParseEmployee(string data)
+    {
+        string[] parts = data.Split(' ');
+        char type = parts[0][0];
+        switch (type)
+        {
+            case 'H':
+                return new HourlyEmployee(
+                    decimal.Parse(parts[1]),
+                    decimal.Parse(parts[2])
+                );
+    
+            case 'S':
+                return new SalariedEmployee(
+                    decimal.Parse(parts[1])
+                );
+    
+            case 'C':
+                return new CommissionEmployee(
+                    decimal.Parse(parts[1]),
+                    decimal.Parse(parts[2])
+                );
+    
+            default:
+                return null;
+        }
+    }    
 }
