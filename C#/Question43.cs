@@ -1,93 +1,81 @@
-using System;
-
-class Program
+﻿using System;
+using System.Collections.Generic;
+public class Program
 {
-    public decimal Balance { get; private set; }
-
-    public Program(decimal initialBalance)
-    {
-        Balance = initialBalance;
-    }
-
-    public void Deposit(decimal amount)
-    {
-        if (amount < 0)
-            throw new Exception("Deposit amount cannot be negative");
-
-        Balance += amount;
-    }
-
-    public void Withdraw(decimal amount)
-    {
-        if (amount > Balance)
-            throw new Exception("Insufficient funds.");
-
-        Balance -= amount;
-    }
+	public static SortedDictionary<int, Bike> bikeDetals=new SortedDictionary<int, Bike>();
+	public static void Main()
+	{
+		int choice = 0;
+		BikeUtility obj = new BikeUtility();
+		do
+		{
+			Console.WriteLine("1. Add Bike Details");
+ 			Console.WriteLine("2. Group Bikes By Brand");
+			Console.WriteLine("3. Exit");
+			Console.WriteLine("Enter your choice");
+			choice=Convert.ToInt32(Console.ReadLine());	
+			switch (choice)
+			{
+				case 1:
+					Console.Write("Enter the model : ");
+					string model = Console.ReadLine();
+					Console.Write("Enter the brand : ");
+					string brand = Console.ReadLine();
+					Console.Write("Enter the price per day : ");
+					int price = Convert.ToInt32(Console.ReadLine());
+					obj.AddBikeDetails(model, brand, price);
+					Console.WriteLine("Bike details added successfully");
+					break;
+				case 2:
+					SortedDictionary<string, List<Bike>> result = obj.GroupBikesByBrand();
+					foreach (var item in result.Keys)
+					{
+						Console.Write(item + " ");
+						foreach (var bike in result[item])
+						{
+							Console.Write(bike.Model + " ");
+						}
+						Console.WriteLine();
+					}
+					break;
+				case 3:
+					break;
+				default:
+					Console.WriteLine("Wrong Choice");
+					break;
+			}
+		}
+		while (choice != 3);
+	}
 }
-
-class UnitTest
+public class Bike
 {
-    public static void Test_Deposit_ValidAmount()
-    {
-        var account = new Program(100m);
-        account.Deposit(50m);
-
-        Console.WriteLine(account.Balance == 150m);
-    }
-
-    public static void Test_Deposit_NegativeAmount()
-    {
-        var account = new Program(100m);
-        bool result;
-
-        try
-        {
-            account.Deposit(-20m);
-            result = false;
-        }
-        catch
-        {
-            result = true;
-        }
-
-        Console.WriteLine(result);
-    }
-
-    public static void Test_Withdraw_ValidAmount()
-    {
-        var account = new Program(100m);
-        account.Withdraw(40m);
-
-        Console.WriteLine(account.Balance == 60m);
-    }
-
-    public static void Test_Withdraw_InsufficientFunds()
-    {
-        var account = new Program(100m);
-        bool result;
-
-        try
-        {
-            account.Withdraw(150m);
-            result = false;
-        }
-        catch
-        {
-            result = true;
-        }
-
-        Console.WriteLine(result);
-    }
+	public string Model { get; set; }
+	public int PricePerDay { get; set; }
+	public string Brand { get; set; }
 }
-
-class MainProgram
-{
-    static void Main()
-    {
-        UnitTest.Test_Deposit_ValidAmount();
-        UnitTest.Test_Deposit_NegativeAmount();
-        UnitTest.Test_Withdraw_ValidAmount();
-        UnitTest.Test_Withdraw_InsufficientFunds();
-    }
+public class BikeUtility 
+{ 
+	public void AddBikeDetails(string model,string brand,int pricePerDay)
+	{
+		Bike bike = new Bike
+		{
+			Model = model,
+			PricePerDay = pricePerDay,
+			Brand = brand,
+		};
+		int key=Program.bikeDetals.Count+1;
+		Program.bikeDetals.Add(key, bike);
+	}
+    public SortedDictionary<string, List<Bike>> GroupBikesByBrand()
+	{
+		SortedDictionary<string,List<Bike>> dict=new SortedDictionary<string, List<Bike>>();
+		foreach (var entry in Program.bikeDetals.Values)
+		{
+			if (!dict.ContainsKey(entry.Brand))
+				dict[entry.Brand] = new List<Bike>();
+			dict[entry.Brand].Add(entry);
+		}
+		return dict;
+	}
 }
