@@ -82,3 +82,6 @@ class Program
             {
                 total += employee.GetPay();
             }
+        }
+    }
+}
