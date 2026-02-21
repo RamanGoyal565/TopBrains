@@ -1,0 +1,9 @@
+# Ignore Visual Studio folders anywhere
+**/.vs/
+
+# Ignore build output folders anywhere
+**/bin/
+**/obj/
+
+# Ignore solution extension files
+*.slnx
