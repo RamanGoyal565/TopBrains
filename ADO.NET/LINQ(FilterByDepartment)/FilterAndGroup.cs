@@ -5,9 +5,9 @@
     public string Department { get; set; }
     public double Salary { get; set; }
 }
-class Program
+class FilterAndGroup
 {
-    public static void Main()
+    public static void main()
     {
         List<Employee> list = new List<Employee>()
         {
