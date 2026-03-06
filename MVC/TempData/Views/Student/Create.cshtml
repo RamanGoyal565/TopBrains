@@ -1,0 +1,16 @@
+﻿@model Student
+
+@using (Html.BeginForm())
+{
+    <div>
+        <label>Name</label>
+        @Html.TextBoxFor(m => m.Name)
+    </div>
+
+    <div>
+        <label>Age</label>
+        @Html.TextBoxFor(m => m.Age)
+    </div>
+
+    <button type="submit">Create Student</button>
+}
