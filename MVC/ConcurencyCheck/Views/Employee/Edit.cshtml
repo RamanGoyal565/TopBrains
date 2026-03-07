@@ -1,0 +1,27 @@
+﻿@model Employee
+
+<h2>Update Salary</h2>
+
+<form asp-action="Edit" method="post">
+
+    <input type="hidden" name="employeeId" value="@Model.EmployeeId" />
+    <input type="hidden" name="rowVersion" value="@Convert.ToBase64String(Model.RowVersion)" />
+
+    <div>
+        <label>Name</label>
+        <input value="@Model.Name" readonly />
+    </div>
+
+    <div>
+        <label>Salary</label>
+        <input name="salary" value="@Model.Salary" />
+    </div>
+
+    <button type="submit">Update Salary</button>
+
+</form>
+
+@if (ViewBag.Message != null)
+{
+    <p>@ViewBag.Message</p>
+}
