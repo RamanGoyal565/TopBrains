@@ -1,0 +1,16 @@
+﻿<h2>Upload Image</h2>
+
+<form action="/Image/Upload" method="post" enctype="multipart/form-data">
+
+    <input type="file" name="file" />
+
+    <br><br>
+
+    <input type="submit" value="Upload">
+
+</form>
+
+@if (ViewBag.Message != null)
+{
+    <p>@ViewBag.Message</p>
+}
